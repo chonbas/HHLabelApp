@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="page-header">
+    <h3>Labeler - {{current_user.username}}</h3>
+</div>
+<div ng-app="HHLabelApp" ng-controller="HHLabelController">
+   	<p><textarea ng-model="main.comment.body" rows="5" cols="50"></textarea></p>
+    <button ng-click="main.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
+    <button ng-click="main.chooseHarass()" type="button" class="btn btn-danger">Harassment</button> 
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="{{ url_for('static', filename='angular/angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular-resource/angular-resource.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='labelController.js') }}"></script>
+{% endblock %}
