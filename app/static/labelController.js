@@ -1,7 +1,7 @@
-var HHLabelApp = angular.module('HHLabelApp', ['ngResource'])
+var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngSanitize'])
 
-HHLabelApp.controller('HHLabelController', ['$scope', '$resource','$http',
-function($scope, $resource, $http){
+HHLabelApp.controller('HHLabelController', ['$scope', '$resource','$http','$sanitize',
+function($scope, $resource, $http, $sanitize){
     $scope.main = {};
     $scope.main.comment = {};
     $scope.main.comment.body = "";

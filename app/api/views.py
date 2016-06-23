@@ -31,6 +31,7 @@ def saveComment():
 @login_required
 def downloadComments():
     import csv, os
+    users = User.query.all()
     with open('currentDump.csv', 'wb') as csvfile:
         csvfile.truncate()
         fieldnames = ['body', 'label','labeler']
@@ -44,7 +45,7 @@ def downloadComments():
                 except(UnicodeEncodeError):
                     pass
     basedir = os.path.abspath(os.path.dirname(__file__))[:-7]
-    return send_file(basedir+'currentDump.csv',mimetype='text/csv')
+    return send_file(basedir+'currentDump.csv')
 
 
     

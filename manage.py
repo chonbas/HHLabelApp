@@ -35,6 +35,14 @@ def start_db():
     db.session.commit()
     return
 
+@manager.command
+def prune_db():
+    comments = Comment.query.all()
+    for c in comments:
+        if c.body == '[deleted]' or c.body == 'body':
+            db.session.delete(c)
+    db.session.commit()
+
 manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
