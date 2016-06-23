@@ -4,7 +4,7 @@
 <div id="labelContainer" ng-app="HHLabelApp" ng-controller="HHLabelController" ng-keypress="main.parseKeys($event)" tabindex="0">
     <div class="page-header">
         <h3>{{current_user.username}}</h3>
-        <h4> {% raw %}Comments Labeled : {{main.label_count}}{% endraw %}</h4>
+        <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
     </div>
     <div>
         <button ng-click="main.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
