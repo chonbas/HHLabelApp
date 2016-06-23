@@ -7,9 +7,18 @@ function($scope, $resource, $http){
     $scope.main.comment.body = "";
     $scope.main.comment.id = "";
     $scope.main.comment.label = "";
+    $scope.main.label_count = 0;
     $scope.main.GetNextComment = $resource('/getComment');
     $scope.main.SaveComment = $resource('/saveComment');
 
+
+    $scope.main.parseKeys = function(keyEvent){
+        if (keyEvent.keyCode === 45){
+            $scope.main.chooseNotHarass();
+        } else if (keyEvent.keyCode === 61){
+            $scope.main.chooseHarass();
+        }
+    };
 
     $scope.main.chooseHarass = function(){
         $scope.main.comment.label = 'Harassment'
@@ -26,6 +35,7 @@ function($scope, $resource, $http){
             .$promise.then(function(comment){
                 $scope.main.comment.body = comment.body;
                 $scope.main.comment.id = comment.id;
+                $scope.main.label_count = comment.count;
             }, function(err){
                 $scope.main.comment.body = err.data;
             });

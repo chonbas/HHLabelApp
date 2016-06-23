@@ -10,7 +10,8 @@ from ..models import User, Comment
 @login_required
 def getComment():
     next_comment = Comment.query.filter_by(label = None).first()
-    resp = jsonify({'body':next_comment.body, 'id':next_comment.id})
+    label_count = len(current_user.labeled.all())
+    resp = jsonify({'body':next_comment.body, 'id':next_comment.id, 'count':label_count})
     resp.status_code = 200
     return resp
 
