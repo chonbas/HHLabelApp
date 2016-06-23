@@ -19,8 +19,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     HOST = '0.0.0.0'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
     @classmethod
     def init_app(cls, app):
