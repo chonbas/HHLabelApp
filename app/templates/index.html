@@ -38,7 +38,7 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename='jquery/jquery-3.0.0.min.js') }}"></script>
+    {{ super() }}
     <script src="{{ url_for('static', filename='angular/angular.min.js') }}"></script>
     <script src="{{ url_for('static', filename='angular-resource/angular-resource.min.js') }}"></script>
     <script src="{{ url_for('static', filename='angular-sanitize/angular-sanitize.min.js') }}"></script>
