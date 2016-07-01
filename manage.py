@@ -12,7 +12,7 @@ from app.models import User, Comment
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app('production')
+app = create_app('default')
 
 manager = Manager(app)
 migrate = Migrate(app,db)

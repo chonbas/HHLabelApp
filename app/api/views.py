@@ -27,11 +27,25 @@ def saveComment():
     resp = Response(status=200, mimetype='application/json')
     return resp
 
+
+@api.route('/leaderBoard', methods=['GET'])
+@login_required
+def leaderBoard():
+    all_users = User.query.all()
+    label_counted_users = [{'username':u.username, 'labelCount':len(u.labeled.all())} for u in all_users]
+    print label_counted_users
+    sorted_users = sorted(label_counted_users, key=lambda user: user['labelCount'])
+    print sorted_users
+    resp = jsonify({'leaders': sorted_users})
+    resp.status_code = 200
+    return resp
+        
+
+
 @api.route('/downloadComments', methods=['GET'])
 @login_required
 def downloadComments():
     import csv, os
-    users = User.query.all()
     with open('currentDump.csv', 'wb') as csvfile:
         csvfile.truncate()
         fieldnames = ['body', 'label','labeler']

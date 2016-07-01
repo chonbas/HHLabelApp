@@ -2,20 +2,38 @@
 
 {% block page_content %}
 <div id="labelContainer" ng-app="HHLabelApp" ng-controller="HHLabelController" ng-keypress="main.parseKeys($event)" tabindex="0">
-    <div class="page-header">
-        <h3>{{current_user.username}}</h3>
-        <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
-    </div>
-    <div>
-        <button ng-click="main.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
-        <button ng-click="main.chooseHarass()" type="button" class="btn btn-danger">Harassment</button> 
+    <div class="col-md-8">
+        <div class="page-header">
+            <h3>{{current_user.username}}</h3>
+            <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
+        </div>
         <div>
-            <br>
-            <h4>Comment:</h4>
-            <p> {% raw %} {{ main.comment.body}} {% endraw %}</p>
+            <button ng-click="main.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
+            <button ng-click="main.chooseHarass()" type="button" class="btn btn-danger">Harassment</button> 
+            <div>
+                <br>
+                <h4>Comment:</h4>
+                <p> {% raw %} {{ main.comment.body}} {% endraw %}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" id="leaderboardContainer">
+        <div class="page-header">
+            <h3>Leaderboard:</h3>
+            <h4>Username - LabelCount</h4>
+        </div>
+        <div>
+            {% raw %}
+                <ol>
+                    <li ng-repeat="score in main.leaderboard">
+                        <h5>{{score.username}} - {{score.labelCount}}</h5>
+                    </li>
+                </ol>
+            {% endraw %}
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block scripts %}
