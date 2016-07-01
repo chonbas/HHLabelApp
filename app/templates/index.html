@@ -3,7 +3,7 @@
 {% block body_attribs %} ng-app="HHLabelApp" ng-controller="HHLabelController" ng-keypress="main.parseKeys($event)" tabindex="0" {% endblock %}
 {% block page_content %}
 <div id="labelContainer">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="page-header">
             <h3>{{current_user.username}}</h3>
             <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4" id="leaderboardContainer">
+    <div class="col-md-3" id="leaderboardContainer">
         <div class="page-header">
             <h3>Leaderboard:</h3>
             <h4>Username - Number of Labels</h4>
@@ -31,6 +31,13 @@
                     </li>
                 </ol>
             {% endraw %}
+        </div>
+    </div>
+    <div class="col-md-3" id="totalsContainer">
+        <div class="page-header">
+            <h3>Totals</h3>
+            <h5>Comments Labeled: {% raw %} {{main.total_count}}{% endraw %}</h5>
+            <h5>Commensts Labeled as Harassment: {% raw %} {{main.harass_count}}{% endraw %}</h5>
         </div>
     </div>
 </div>

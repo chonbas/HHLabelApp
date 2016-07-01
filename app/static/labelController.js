@@ -8,6 +8,8 @@ function($scope, $resource, $http, $sanitize){
     $scope.main.comment.id = "";
     $scope.main.comment.label = "";
     $scope.main.label_count = 0;
+    $scope.main.total_count = 0;
+    $scope.main.harass_count = 0;
     $scope.main.leaderboard = []; 
     $scope.main.GetNextComment = $resource('/getComment');
     $scope.main.SaveComment = $resource('/saveComment');
@@ -35,6 +37,8 @@ function($scope, $resource, $http, $sanitize){
         $scope.main.GetLeaderboard.get()
             .$promise.then(function(leaderlist){
                 $scope.main.leaderboard = leaderlist.leaders;
+                $scope.main.total_count = leaderlist.total;
+                $scope.main.harass_count = leaderlist.harass;
             }, function(err){
                 console.log(err.data);
             });
