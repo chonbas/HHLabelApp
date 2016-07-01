@@ -33,9 +33,7 @@ def saveComment():
 def leaderBoard():
     all_users = User.query.all()
     label_counted_users = [{'username':u.username, 'labelCount':len(u.labeled.all())} for u in all_users]
-    print label_counted_users
-    sorted_users = sorted(label_counted_users, key=lambda user: user['labelCount'])
-    print sorted_users
+    sorted_users = sorted(label_counted_users, key=lambda user: user['labelCount'], reverse=True)
     resp = jsonify({'leaders': sorted_users})
     resp.status_code = 200
     return resp
