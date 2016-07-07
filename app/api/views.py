@@ -54,6 +54,14 @@ def getTotals():
     resp.status_code = 200
     return resp
 
+@api.route('/checkfb', methods=['GET'])
+@login_required
+def checkFB():
+    status = current_user.facebook_data
+    resp = jsonify({'status':status})
+    resp.status_code = 200
+    return resp
+    
 @api.route('/downloadComments', methods=['GET'])
 @login_required
 def downloadComments():
