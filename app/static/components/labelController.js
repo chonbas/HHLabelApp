@@ -1,12 +1,19 @@
-var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngSanitize'])
+var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngSanitize','ezfb'])
+.config(function(ezfbProvider){
+    ezfbProvider.setInitParams({
+        appId      : '1046357475402235'
+    });
+});
 
-HHLabelApp.controller('HHLabelController', ['$scope', '$resource','$http','$sanitize',
-function($scope, $resource, $http, $sanitize){
+HHLabelApp.controller('HHLabelController', ['$scope', '$resource','$http','$sanitize', 'ezfb',
+function($scope, $resource, $http, $sanitize, ezfb){
     $scope.main = {};
     $scope.main.comment = {};
     $scope.main.comment.body = "";
     $scope.main.comment.id = "";
     $scope.main.comment.label = "";
+    $scope.main.fb = {};
+    $scope.main.fb.response = "";
     $scope.main.label_count = 0;
     $scope.main.total_count = 0;
     $scope.main.harass_count = 0;
@@ -68,6 +75,14 @@ function($scope, $resource, $http, $sanitize){
                 $scope.main.comment.body = err.data;
                 console.log(err);
             });
-    }
+    };
+
+    // $scope.main.syncFB = function(){
+    //     ezfb.login(function(res) {
+    //         ezfb.api('/me?fields=posts', function (res_api) {
+    //             console.log(res_api);
+    //         });
+    //     }, {scope:'email, user_posts'});
+    // };
 }
 ]);
