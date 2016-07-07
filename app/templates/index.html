@@ -20,28 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" id="leaderboardContainer">
-        <div class="page-header">
-            <h3>Leaderboard:</h3>
-            <h4>Username - Number of Labels</h4>
-        </div>
-        <div>
-            {% raw %}
-                <ol>
-                    <li ng-repeat="score in main.leaderboard">
-                        <h5>{{score.username}} - {{score.labelCount}}</h5>
-                    </li>
-                </ol>
-            {% endraw %}
-        </div>
-    </div>
-    <div class="col-md-3" id="totalsContainer">
-        <div class="page-header">
-            <h3>Totals</h3>
-            <h5>Comments Labeled: {% raw %} {{main.total_count}}{% endraw %}</h5>
-            <h5>Comments Labeled as Harassment: {% raw %} {{main.harass_count}}{% endraw %}</h5>
-        </div>
-    </div>
+    <div ng-include="'{{ url_for('static', filename='components/leaderboard/hhleaderboard.html') }}'" ng-controller="HHLeaderboardController"></div>
 </div>
 
 {% endblock %}
@@ -53,5 +32,5 @@
     <script src="{{ url_for('static', filename='jslibs/angular-sanitize/angular-sanitize.min.js') }}"></script>
     <script src="{{ url_for('static', filename='jslibs/angular-easyfb/angular-easyfb.min.js') }}"></script>
     <script src="{{ url_for('static', filename='components/labelController.js') }}"></script>
-    <script src="{{ url_for('static', filename='components/fbDataController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboard.js') }}"></script>
 {% endblock %}

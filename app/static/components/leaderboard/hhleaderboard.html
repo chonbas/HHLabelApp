@@ -1,0 +1,21 @@
+<div class="col-md-3" id="leaderboardContainer">
+    <div class="page-header">
+        <h3>Leaderboard:</h3>
+        <h4>Username - Number of Labels</h4>
+        <h5>Last updated {{leaderboard.time_updated}}</h5>
+    </div>
+    <div>
+        <ol>
+            <li ng-repeat="score in leaderboard.leaderboard">
+                <h5>{{score.username}} - {{score.labelCount}}</h5>
+            </li>
+        </ol>
+    </div>          
+</div>
+<div class="col-md-3" id="totalsContainer">
+    <div class="page-header">
+        <h3>Totals</h3>
+        <h5>Comments Labeled: {{leaderboard.total_count}}</h5>
+        <h5>Comments Labeled as Harassment: {{leaderboard.harass_count}}</h5>
+    </div>
+</div>
