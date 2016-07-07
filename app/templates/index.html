@@ -6,6 +6,8 @@
     <div class="col-md-6">
         <div class="page-header">
             <h3>{{current_user.username}}</h3>
+            <!--<button ng-click="main.syncFB()" type="button" class="btn btn-primary">Sync FB</button>
+            {% raw %} {{main.fb.response}} {% endraw %}-->
             <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
         </div>
         <div>
@@ -46,8 +48,10 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='angular/angular.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='angular-resource/angular-resource.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='angular-sanitize/angular-sanitize.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='labelController.js') }}"></script>
+    <script src="{{ url_for('static', filename='jslibs/angular/angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jslibs/angular-resource/angular-resource.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jslibs/angular-sanitize/angular-sanitize.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jslibs/angular-easyfb/angular-easyfb.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/labelController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/fbDataController.js') }}"></script>
 {% endblock %}
