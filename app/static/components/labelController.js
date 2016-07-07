@@ -42,7 +42,9 @@ function($scope, $rootScope, $resource, $http, $sanitize, ezfb){
                 $scope.main.comment.body = comment.body;
                 $scope.main.comment.id = comment.id;
                 $scope.main.label_count = comment.count;
-                $rootScope.$broadcast('updateLeaders', 'updatingLeaders');
+                if (comment.count % 10 === 0){
+                    $rootScope.$broadcast('updateLeaders', 'updatingLeaders');  
+                }
             }, function(err){
                 $scope.main.comment.body = err.data;
             });
