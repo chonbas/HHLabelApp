@@ -13,7 +13,10 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     labeled = db.relationship('Comment', backref='labeler', lazy='dynamic')
-
+    facebook_data = db.Column(db.Boolean, default=False)
+    twitter_data = db.Column(db.Boolean, default=False)
+    google_data = db.Column(db.Boolean, default=False)
+    
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
     

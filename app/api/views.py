@@ -34,20 +34,25 @@ def leaderBoard():
     all_users = User.query.all()
     label_counted_users = [{'username':u.username, 'labelCount':len(u.labeled.all())} for u in all_users]
     sorted_users = sorted(label_counted_users, key=lambda user: user['labelCount'], reverse=True)
-    total = 0
-    harass = 0
-    for u in sorted_users:
-        total += u['labelCount']
-    for u in all_users:
-        comments = u.labeled.all()
-        for c in comments:
-            if c.label == "Harassment":
-                harass += 1
-    resp = jsonify({'leaders': sorted_users, 'total':total, 'harass':harass})
+    resp = jsonify({'leaders': sorted_users})
     resp.status_code = 200
     return resp
         
-
+@api.route('/totals', methods=['GET'])
+@login_required
+def getTotals():
+    all_users = User.query.all()
+    total = 0
+    harass = 0
+    for u in all_users:
+        comments = u.labeled.all()
+        total += len(comments)
+        for c in comments:
+            if c.label == "Harassment":
+                harass += 1
+    resp = jsonify({'total': total, 'harass':harass})
+    resp.status_code = 200
+    return resp
 
 @api.route('/downloadComments', methods=['GET'])
 @login_required

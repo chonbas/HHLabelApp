@@ -21,6 +21,7 @@
         </div>
     </div>
     <div ng-include="'{{ url_for('static', filename='components/leaderboard/hhleaderboard.html') }}'" ng-controller="HHLeaderboardController"></div>
+     <div ng-include="'{{ url_for('static', filename='components/totals_widget/totals.html') }}'" ng-controller="HHTotalsController"></div>
 </div>
 
 {% endblock %}
@@ -32,5 +33,6 @@
     <script src="{{ url_for('static', filename='jslibs/angular-sanitize/angular-sanitize.min.js') }}"></script>
     <script src="{{ url_for('static', filename='jslibs/angular-easyfb/angular-easyfb.min.js') }}"></script>
     <script src="{{ url_for('static', filename='components/labelController.js') }}"></script>
-    <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboardController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/totals_widget/totalsController.js') }}"></script>
 {% endblock %}

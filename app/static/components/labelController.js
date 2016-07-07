@@ -1,19 +1,13 @@
 var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngSanitize','ezfb']);
-// .config(function(ezfbProvider){
-//     ezfbProvider.setInitParams({
-//         appId      : '1046357475402235'
-//     });
-// });
 
-HHLabelApp.controller('HHLabelController', ['$scope','$rootScope', '$resource','$http','$sanitize', 'ezfb',
-function($scope, $rootScope, $resource, $http, $sanitize, ezfb){
+
+HHLabelApp.controller('HHLabelController', ['$scope','$rootScope', '$resource','$http','$sanitize',
+function($scope, $rootScope, $resource, $http, $sanitize){
     $scope.main = {};
     $scope.main.comment = {};
     $scope.main.comment.body = "";
     $scope.main.comment.id = "";
     $scope.main.comment.label = "";
-    // $scope.main.fb = {};
-    // $scope.main.fb.response = "";
     $scope.main.label_count = 0;
     $scope.main.GetNextComment = $resource('/getComment');
     $scope.main.SaveComment = $resource('/saveComment');
@@ -43,7 +37,8 @@ function($scope, $rootScope, $resource, $http, $sanitize, ezfb){
                 $scope.main.comment.id = comment.id;
                 $scope.main.label_count = comment.count;
                 if (comment.count % 10 === 0){
-                    $rootScope.$broadcast('updateLeaders', 'updatingLeaders');  
+                    $rootScope.$broadcast('updateLeaders', 'updatingLeaders');
+                    $rootScope.$broadcast('updateTotals', 'updatingTotals');  
                 }
             }, function(err){
                 $scope.main.comment.body = err.data;
@@ -61,13 +56,5 @@ function($scope, $rootScope, $resource, $http, $sanitize, ezfb){
                 console.log(err);
             });
     };
-
-    // $scope.main.syncFB = function(){
-    //     ezfb.login(function(res) {
-    //         ezfb.api('/me?fields=posts', function (res_api) {
-    //             console.log(res_api);
-    //         });
-    //     }, {scope:'email, user_posts'});
-    // };
 }
 ]);
