@@ -6,8 +6,6 @@
     <div class="col-md-6">
         <div class="page-header">
             <h3>{{current_user.username}}</h3>
-            <!--<button ng-click="main.syncFB()" type="button" class="btn btn-primary">Sync FB</button>
-            {% raw %} {{main.fb.response}} {% endraw %}-->
             <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
         </div>
         <div>
@@ -22,7 +20,7 @@
     </div>
     <div ng-include="'{{ url_for('static', filename='components/leaderboard/hhleaderboard.html') }}'" ng-controller="HHLeaderboardController"></div>
     <div ng-include="'{{ url_for('static', filename='components/totals_widget/totals.html') }}'" ng-controller="HHTotalsController"></div>
-    <div ng-include="'{{ url_for('static', filename='components/fb_login/fb_login.html') }}'" ng-controller="HHFBLoginController"></div>
+    <!--<div ng-include="'{{ url_for('static', filename='components/fb_login/fb_login.html') }}'" ng-controller="HHFBLoginController"></div>-->
 </div>
 
 {% endblock %}
@@ -36,5 +34,5 @@
     <script src="{{ url_for('static', filename='components/labelController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboardController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/totals_widget/totalsController.js') }}"></script>
-    <script src="{{ url_for('static', filename='components/fb_login/fb_loginController.js') }}"></script
+    <!--<script src="{{ url_for('static', filename='components/fb_login/fb_loginController.js') }}"></script-->
 {% endblock %}

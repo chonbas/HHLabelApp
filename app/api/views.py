@@ -6,6 +6,8 @@ from . import api
 from .. import db
 from ..models import User, Comment
 
+
+
 @api.route('/getComment', methods=['GET'])
 @login_required
 def getComment():
@@ -61,7 +63,7 @@ def checkFB():
     resp = jsonify({'status':status})
     resp.status_code = 200
     return resp
-    
+
 @api.route('/downloadComments', methods=['GET'])
 @login_required
 def downloadComments():
