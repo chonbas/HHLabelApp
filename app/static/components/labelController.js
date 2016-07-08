@@ -21,12 +21,12 @@ function($scope, $rootScope, $resource, $http, $sanitize){
     };
 
     $scope.main.chooseHarass = function(){
-        $scope.main.comment.label = 'Harassment'
+        $scope.main.comment.label = true;
         $scope.main.pushComment();
     };
 
     $scope.main.chooseNotHarass = function(){
-        $scope.main.comment.label = 'Acceptable'
+        $scope.main.comment.label = false;
         $scope.main.pushComment();
     };
     

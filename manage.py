@@ -24,9 +24,13 @@ def make_shell_context():
 def start_db():
     import csv
     db.create_all()
-    with open('reddit_downvoted_15k.csv') as csvfile:
+    with open('rawseed.csv') as csvfile:
         file = csv.reader(csvfile, delimiter=',', quotechar='"')
+        row_ind = 0
         for row in file:
+            if row_ind == 0:
+                row_ind = 1
+                continue
             if len(row) == 0:
                 continue
             text = unicode(row[0], errors='replace')

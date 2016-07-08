@@ -12,7 +12,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    labeled = db.relationship('Comment', backref='labeler', lazy='dynamic')
+    labeled = db.relationship('Label', backref='labeler', lazy='dynamic')
+    label_count = db.Column(db.Integer, default=0)
     facebook_data = db.Column(db.Boolean, default=False)
     twitter_data = db.Column(db.Boolean, default=False)
     google_data = db.Column(db.Boolean, default=False)
@@ -45,5 +46,11 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
+    labels = db.relationship('Label', backref='comment', lazy='dynamic')
+
+class Label(db.Model):
+    __tablename__ = 'labels'
+    id = db.Column(db.Integer, primary_key=True)
     labeler_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    label = db.Column(db.Integer)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    harassment = db.Column(db.Boolean)
