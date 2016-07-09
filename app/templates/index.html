@@ -27,10 +27,11 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='jslibs/angular/angular.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='jslibs/angular-resource/angular-resource.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='jslibs/angular-sanitize/angular-sanitize.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='jslibs/angular-easyfb/angular-easyfb.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="http://pc035860.github.io/angular-easyfb/angular-easyfb.min.js"></script>
     <script src="{{ url_for('static', filename='components/labelController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboardController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/totals_widget/totalsController.js') }}"></script>

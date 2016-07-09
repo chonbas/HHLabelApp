@@ -1,6 +1,21 @@
-var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngSanitize','ezfb']);
+var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngSanitize','ngRoute','ezfb']);
 
-
+HHLabelApp.config(['$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.
+            when('/home', {
+                templateUrl: 'user-list/user-listTemplate.html',
+                controller: 'UserListController'
+            }).
+            when('/users/:userId', {
+                templateUrl: 'components/user-detail/user-detailTemplate.html',
+                controller: 'UserDetailController'
+            }).
+            otherwise({
+                redirectTo: '/users'
+            });
+    }]);
+    
 HHLabelApp.controller('HHLabelController', ['$scope','$rootScope', '$resource','$http','$sanitize',
 function($scope, $rootScope, $resource, $http, $sanitize){
     $scope.main = {};
