@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3>{{main.active_user}}</h3>
+            <h4> Comments Labeled : {{label.label_count}}</h4>
+        </div>
+        <div>
+            <button ng-click="label.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
+            <button ng-click="label.chooseHarass()" type="button" class="btn btn-danger">Harassment</button> 
+            <div>
+                <br>
+                <h4>Comment:</h4>
+                <p> {{ label.comment.body}}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'/static/components/leaderboard/hhleaderboardTemplate.html'" ng-controller="HHLeaderboardController"></div>
+    <div ng-include="'/static/components/totals_widget/totalsTemplate.html'" ng-controller="HHTotalsController"></div>
+</div>

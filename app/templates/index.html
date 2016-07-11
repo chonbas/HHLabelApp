@@ -1,39 +1,54 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HackHarassment Labeling Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-{% block body_attribs %} ng-app="HHLabelApp" ng-controller="HHLabelController" ng-keypress="main.parseKeys($event)" tabindex="0" {% endblock %}
-{% block page_content %}
-<div id="labelContainer">
-    <div class="col-md-6">
-        <div class="page-header">
-            <h3>{{current_user.username}}</h3>
-            <h4> Comments Labeled : {% raw %}{{main.label_count}}{% endraw %}</h4>
-        </div>
-        <div>
-            <button ng-click="main.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
-            <button ng-click="main.chooseHarass()" type="button" class="btn btn-danger">Harassment</button> 
-            <div>
-                <br>
-                <h4>Comment:</h4>
-                <p> {% raw %} {{ main.comment.body}} {% endraw %}</p>
+<body ng-app="HHLabelApp" ng-controller="HHMainController" ng-keypress="label.parseKeys($event)" tabindex=0>
+
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Tool</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/instructions">Home</a></li>
+                    <li ng-show="main.auth_status"><a href="#/label">Label</a></li>
+                    <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
+                    <li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>
+                    <li ng-show="!main.auth_status"><a href="/">Login</a></li>
+                </ul>
             </div>
         </div>
     </div>
-    <div ng-include="'{{ url_for('static', filename='components/leaderboard/hhleaderboard.html') }}'" ng-controller="HHLeaderboardController"></div>
-    <div ng-include="'{{ url_for('static', filename='components/totals_widget/totals.html') }}'" ng-controller="HHTotalsController"></div>
-    <!--<div ng-include="'{{ url_for('static', filename='components/fb_login/fb_login.html') }}'" ng-controller="HHFBLoginController"></div>-->
-</div>
 
-{% endblock %}
+    <div id="contentView" ng-view></div>
 
-{% block scripts %}
-    {{ super() }}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>    
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
-    <script src="http://pc035860.github.io/angular-easyfb/angular-easyfb.min.js"></script>
-    <script src="{{ url_for('static', filename='components/labelController.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+    <script src="http://pc035860.github.io/angular-easyfb/angular-easyfb.js"></script>
+    <script src="{{ url_for('static', filename='components/mainController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/auth/authController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/labeler/labelController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboardController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/totals_widget/totalsController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/instructions/instructionsController.js') }}"></script>
     <!--<script src="{{ url_for('static', filename='components/fb_login/fb_loginController.js') }}"></script-->
-{% endblock %}
+</body>
+</html>

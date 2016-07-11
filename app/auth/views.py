@@ -1,38 +1,60 @@
-from flask import render_template, redirect, request, url_for, flash, g
+import json
+from flask import render_template, redirect, Response, request, url_for, flash, g, jsonify
 from flask_login import login_user, logout_user, login_required, \
     current_user
 from . import auth
 from .. import db
 from ..models import User
-from .forms import LoginForm, RegistrationForm
 
-@auth.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user, form.remember_me.data)
-            return redirect(url_for('index'))
-        flash('Invalid username of password.')
-    return render_template('login.html', form=form)
 
-@auth.route('/logout')
+@auth.route('/check', methods=['GET'])
+def check():
+    status = current_user.is_authenticated
+    user = "" 
+    if status:
+        user = current_user.username
+    resp = jsonify({'status':status, 'user':user})
+    resp.status_code = 200
+    return resp
+
+@auth.route('/api/register', methods=['POST'])
+def api_register():
+    data = json.loads(request.data.decode())
+    email_test = User.query.filter_by(email=data['email']).first()
+    if email_test is not None:
+        resp = jsonify({'status':'email_in_use'})
+        resp.status_code = 200
+        return resp
+    user_test  = User.query.filter_by(username=data['username']).first()
+    if user_test is not None:
+        resp = jsonify({'status':'user_in_use'})
+        resp.status_code = 200
+        return resp
+    user = User(email=data['email'],
+                username=data['username'],
+                password=data['password'])
+    db.session.add(user)
+    db.session.commit()
+    resp = jsonify({'status':'success'})
+    resp.status_code = 200
+    return resp
+
+@auth.route('/api/login', methods=['POST'])
+def api_login():
+    data = json.loads(request.data.decode())
+    user = User.query.filter_by(email=data['email']).first()
+    if user is not None and user.verify_password(data['password']):
+        login_user(user, data['remember_me'])
+        resp = jsonify({'status':True, 'user':user.username})
+        resp.status_code = 200
+        return resp
+    resp = jsonify({'status':False})
+    resp.status_code = 200
+    return resp
+
+@auth.route('/api/logout', methods=['GET'])
 @login_required
-def logout():
+def api_logout():
     logout_user()
-    flash("You have been logged out.")
-    return redirect(url_for('auth.login'))
-
-@auth.route('/register', methods=['GET','POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(email=form.email.data,
-                    username=form.username.data,
-                    password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Successfully Registered')
-        return redirect(url_for('auth.login'))
-    return render_template('register.html', form=form)
+    resp = Response(status=200)
+    return resp
