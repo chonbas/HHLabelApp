@@ -10,13 +10,18 @@ function($scope, $rootScope, $resource, $http, $sanitize){
     $scope.label.GetNextComment = $resource('/getComment');
     $scope.label.SaveComment = $resource('/saveComment');
 
-    $scope.label.parseKeys = function(keyEvent){
+    $scope.$on('key-press', function(event, keyEvent){
         if (keyEvent.keyCode === 45){
             $scope.label.chooseNotHarass();
         } else if (keyEvent.keyCode === 61){
             $scope.label.chooseHarass();
         }
+    });
+    $scope.label.parseKeys = function(keyEvent){
+        
     };
+
+    $scope.main.labeling = true;
 
     $scope.label.chooseHarass = function(){
         $scope.label.comment.label = true;

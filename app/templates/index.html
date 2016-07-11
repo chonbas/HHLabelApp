@@ -6,7 +6,7 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body ng-app="HHLabelApp" ng-controller="HHMainController" ng-keypress="label.parseKeys($event)" tabindex=0>
+<body ng-app="HHLabelApp" ng-controller="HHMainController" ng-keypress="main.parseKeys($event)" tabindex=0>
 
     <div class="navbar navbar-inverse" role="navigation">
         <div class="container">
@@ -24,7 +24,7 @@
                     <li><a href="#/instructions">Home</a></li>
                     <li ng-show="main.auth_status"><a href="#/label">Label</a></li>
                     <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
-                    <li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>
+                    <!--<li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>-->
                     <li ng-show="!main.auth_status"><a href="/">Login</a></li>
                 </ul>
             </div>

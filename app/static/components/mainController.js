@@ -23,6 +23,7 @@ HHLabelApp.config(['$routeProvider',
 HHLabelApp.controller('HHMainController', ['$scope', '$rootScope', '$location', '$resource',
     function($scope, $rootScope, $location, $resource){
         $scope.main = {};
+        $scope.main.labeling = false;
         $scope.main.CheckLogin = $resource('/check');
         $scope.main.auth_status = false;
         $scope.main.active_user = "";
@@ -46,6 +47,11 @@ HHLabelApp.controller('HHMainController', ['$scope', '$rootScope', '$location', 
         };
 
 
+        $scope.main.parseKeys = function(keyEvent){
+            if ($scope.main.labeling){
+                $scope.$broadcast('key-press', keyEvent);
+            }
+        };
 
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
              $scope.main.CheckLogin.get()
