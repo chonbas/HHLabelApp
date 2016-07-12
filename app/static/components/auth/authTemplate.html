@@ -1,22 +1,30 @@
 <div class="container">
 <h3 id='authError'>{{auth.error}}</h3>
     <div id ='authBox' layout='column' ng-show='!auth.register'>
-        <label>Email: <input type="text" ng-model="auth.email"></label><br/>
-        <label>Password: <input type="password" ng-model="auth.password"></label><br/>
-        <label>Remember Me: <input type="checkbox" ng-model="auth.remember_me"></label><br/>
-        <div id ='authButtonBox'>
-            <button class="btn-primary" ng-click="auth.attemptLogin()">Login</button>
-            <button class="btn-primary" ng-click="auth.toggleView()">New user?</button>
-        </div>
+        <form>
+            <div class="form-group">
+                <label>Email: <input type="email" class="form-control" placeholder="Email" ng-model="auth.email"></label><br/>
+                <label>Password: <input type="password" class="form-control" placeholder="Password" ng-model="auth.password"></label><br/>
+                <label>Remember Me: <input type="checkbox" ng-model="auth.remember_me"></label><br/>
+                <div id ='authButtonBox'>
+                    <button class="btn btn-primary" ng-click="auth.attemptLogin()">Login</button>
+                    <button class="btn btn-primary" ng-click="auth.toggleView()">New user?</button>
+                </div>
+            </div>
+        </form>
     </div>
     <div id ='registrationBox' layout='column' ng-show='auth.register'>
-        <label>Enter email: <input type="email" ng-model="auth.email"></label><br/>
-        <label>Choose a username: <input type="text" ng-model="auth.username"></label><br/>
-        <label>Choose a password: <input type="password" ng-model="auth.password"></label><br/>
-        <label>Confirm password: <input type="password" ng-model="auth.password2"></label><br/>
-        <div id ='authButtonBox'>
-            <button class="btn-primary" ng-click="auth.attemptRegister()">Submit</button>
-            <button class="btn-primary" ng-click="auth.toggleView()">Already Registered?</button>
-        </div>
+        <form>
+            <div class="form-group">
+                <label>Enter email: <input type="email" class="form-control" ng-model="auth.email" placeholder="Email"></label><br/>
+                <label>Choose a username: <input type="text" class="form-control" ng-model="auth.username" placeholder="Username"></label><br/>
+                <label>Choose a password: <input type="password" class="form-control" ng-model="auth.password" placeholder="Password"></label><br/>
+                <label>Confirm password: <input type="password" class="form-control" ng-model="auth.password2" placeholder="Confirm Password"></label><br/>
+                <div id ='authButtonBox'>
+                    <button class="btn btn-primary" ng-click="auth.attemptRegister()">Submit</button>
+                    <button class="btn btn-primary" ng-click="auth.toggleView()">Already Registered?</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
