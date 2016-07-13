@@ -1,0 +1,29 @@
+<div class="container">
+        <h1>How nice are you on Twitter?</h1>
+        <div class="row">
+            <div class="col-xs-6">
+                <button ng-click="twitter.connectButton()" id="connectButton" type="button" class="btn btn-primary">Connect Twitter</button>
+                <button ng-click="twitter.signOut()" id="signOut" type="button" class="btn btn-link" style="display:none;">Sign Out</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" id="results">
+                <ol>
+                    <div ng-show="twitter.maxed" class="row" ng-repeat="t in twitter.tweets">
+                            <li>
+                            <div class="col-xs-2 col-sm-1">
+                                <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                            </div>
+                            <div class="col-xs-10 col-sm-11">
+                                <small>{{t.user.name}}</small>
+                                <br> <span>{{t.text}}</span>
+                            </div>
+                            </li>
+                    </div>
+                </ol>
+                <div ng-show="twitter.rateLimitError">
+                    Unluckily, Twitter's servers are currenlty overloaded. Try again later.
+                </div>
+            </div>
+        </div>
+    </div>

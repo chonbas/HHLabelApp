@@ -17,7 +17,7 @@ def getComment():
         next_body = "Congratulations you have labeled all available comments."
         next_id =-1 #flag to prevent future queries
     else:
-        next_comment = Comment.query.get(label_count+1)
+        next_comment = Comment.query.get(label_count+1) # check for NONE upon return - easier than query whole db, flexible growth
         next_body = next_comment.body
         next_id = next_comment.id
     resp = jsonify({'body':next_body, 'id':next_id, 'count':label_count})
@@ -69,7 +69,15 @@ def getTotals():
     resp.status_code = 200
     return resp
 
-@api.route('/checkfb', methods=['GET'])
+@api.route('/checkTwitter', methods=['GET'])
+@login_required
+def checkTwitter():
+    status = current_user.twitter_data
+    resp = jsonify({'status':status})
+    resp.status_code = 200
+    return resp
+
+@api.route('/checkFb', methods=['GET'])
 @login_required
 def checkFB():
     status = current_user.facebook_data

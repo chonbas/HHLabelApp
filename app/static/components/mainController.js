@@ -1,4 +1,4 @@
-var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngMaterial','ngSanitize','ngRoute','ezfb']);
+var HHLabelApp = angular.module('HHLabelApp', ['ngResource', 'ngMaterial','ngSanitize','ngRoute','ezfb', 'HHLabelApp.services']);
 
 HHLabelApp.config(['$routeProvider',
     function ($routeProvider) {
@@ -14,6 +14,10 @@ HHLabelApp.config(['$routeProvider',
             when('/instructions', {
                 templateUrl: 'static/components/instructions/instructionsTemplate.html',
                 controller: 'HHInstructionsController'
+            }).
+            when('/twitter', {
+                templateUrl: 'static/components/twitter_login/twitter_loginTemplate.html',
+                controller: 'HHTwitterController'
             }).
             otherwise({
                 redirectTo: '/instructions'
