@@ -84,6 +84,19 @@ def checkFB():
     resp.status_code = 200
     return resp
 
+@api.route('/ingestTwitter', methods=['POST'])
+@login_required
+def ingestTwitter():
+    data = json.loads(request.data.decode())
+    for tweet in data:
+        new_comment = Comment(body=tweet['body'])
+        db.session.add(new_comment)
+    current_user.twitter_data = True
+    db.session.commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+    
+
 @api.route('/downloadComments', methods=['GET'])
 @login_required
 def downloadComments():

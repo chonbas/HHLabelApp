@@ -22,10 +22,11 @@ def make_shell_context():
 
 @manager.command
 def start_db():
+    SEED_FILE_PATH = 'mini_test.csv' 
     import csv
     db.drop_all()
     db.create_all()
-    with open('mini_test.csv') as csvfile:
+    with open(SEED_FILE_PATH) as csvfile:
         file = csv.reader(csvfile, delimiter=',', quotechar='"')
         row_ind = 0
         for row in file:
