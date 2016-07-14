@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="#/instructions">Home</a></li>
                     <li ng-show="main.auth_status"><a href="#/label">Label</a></li>
+                    <li ng-show="main.auth_status"><a href="#/twitter">Sync Twitter</a></li>
                     <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
                     <!--<li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>-->
                     <li ng-show="!main.auth_status"><a href="/">Login</a></li>
