@@ -45,7 +45,7 @@ def start_db():
 def prune_db():
     comments = Comment.query.all()
     for c in comments:
-        if c.body == '[deleted]' or c.body == 'body':
+        if c.body == '[deleted]' or c.body == 'body' or c.body =='[removed]':
             db.session.delete(c)
     db.session.commit()
 
