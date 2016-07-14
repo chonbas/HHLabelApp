@@ -17,9 +17,6 @@ function($scope, $rootScope, $resource, $http, $sanitize){
             $scope.label.chooseHarass();
         }
     });
-    $scope.label.parseKeys = function(keyEvent){
-        
-    };
 
     $scope.main.labeling = true;
 

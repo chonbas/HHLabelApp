@@ -10,16 +10,13 @@ from ..models import User, Comment, Label
 @login_required
 def getComment():
     label_count = current_user.label_count
-    if label_count == 27304:
-        # BAD STYLE hardcoded size of db, 
-        # need to figure out solution other than querying db for all comments and get len
-        # as that is extremely inefficient
-        next_body = "Congratulations you have labeled all available comments."
-        next_id =-1 #flag to prevent future queries
-    else:
-        next_comment = Comment.query.get(label_count+1) # check for NONE upon return - easier than query whole db, flexible growth
+    next_comment = Comment.query.get(label_count+1) 
+    if next_comment is not None:
         next_body = next_comment.body
         next_id = next_comment.id
+    else:
+        next_body = "Congratulations you have labeled all available comments."
+        next_id =-1 #flag to prevent future queries
     resp = jsonify({'body':next_body, 'id':next_id, 'count':label_count})
     resp.status_code = 200
     return resp
@@ -27,7 +24,9 @@ def getComment():
 @api.route('/saveComment', methods=['POST'])
 @login_required
 def saveComment():
-    if current_user.label_count == 27304:
+    label_count = current_user.label_count
+    next_comment = Comment.query.get(label_count+1) 
+    if next_comment is None:
         resp = Response(status=200, mimetype='application/json')
         return resp
     data = json.loads(request.data.decode())

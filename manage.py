@@ -23,8 +23,9 @@ def make_shell_context():
 @manager.command
 def start_db():
     import csv
+    db.drop_all()
     db.create_all()
-    with open('rawseed.csv') as csvfile:
+    with open('mini_test.csv') as csvfile:
         file = csv.reader(csvfile, delimiter=',', quotechar='"')
         row_ind = 0
         for row in file:
