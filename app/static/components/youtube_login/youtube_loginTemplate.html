@@ -1,0 +1,26 @@
+<div class="container">
+        <h1>How nice are you on YouTube?</h1>
+        <div class="row">
+            <div class="col-xs-6">
+                <button ng-click="youtube.connectButton()" id="connectButton" type="button" class="btn btn-primary">Connect Twitter</button>
+                <button ng-click="youtube.signOut()" id="signOut" type="button" class="btn btn-link" style="display:none;">Sign Out</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" id="results">
+                <ol>
+                    <div ng-show="youtube.maxed" class="row" ng-repeat="t in youtube.comments">
+                            <li>
+                                <div class="col-xs-10 col-sm-11">
+                                    <small>{{t.user.name}}</small>
+                                    <br> <span>{{t.text}}</span>
+                                </div>
+                            </li>
+                    </div>
+                </ol>
+                <div ng-show="youtube.rateLimitError">
+                    Unluckily, Twitter's servers are currenlty overloaded. Try again later.
+                </div>
+            </div>
+        </div>
+    </div>

@@ -56,15 +56,16 @@ def leaderBoard():
 @login_required
 def getTotals():
     all_users = User.query.all()
-    total = 0
-    harass = 0
+    comments = Comment.query.all()
+    total_labels = 0
+    harass_labels = 0
     for u in all_users:
          labels = u.labeled.all()
-         total += len(labels)
+         total_labels += len(labels)
          for l in labels:
              if l.harassment:
-                 harass += 1
-    resp = jsonify({'total': total, 'harass':harass})
+                 harass_labels += 1
+    resp = jsonify({'total_labels': total_labels, 'harass_labels':harass_labels, 'total_comments':len(comments)})
     resp.status_code = 200
     return resp
 

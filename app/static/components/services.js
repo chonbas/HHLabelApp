@@ -54,3 +54,29 @@ angular.module('HHLabelApp.services', []).factory('twitterService', function($q)
         }
     }
 });
+
+angular.module('HHLabelApp.services', []).factory('youtubeService', function($q) {
+
+    var authorizationResult = false;
+
+    return {
+        initialize: function() {
+            gapi.load('client')
+                .$promise.then(function(){
+                    gapi.client.setApiKey('AIzaSyCm_wRobb69W8wTpp3CcXDNH6jsc6y-ckM');
+                    authorizationResult =true;
+                    return;
+                });            
+        },
+        isReady: function() {
+            return (authorizationResult);
+        },
+        getComments: function(channelID) {
+            return gapi.client.request({
+                'path': 'youtube/v3/youtube.commentThreads.list',
+                'params': {'part':'snippet, replies',
+                            'allThreadsRelatedToChannelId':channelID}
+            });
+        }
+    }
+});

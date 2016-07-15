@@ -19,6 +19,10 @@ HHLabelApp.config(['$routeProvider',
                 templateUrl: 'static/components/twitter_login/twitter_loginTemplate.html',
                 controller: 'HHTwitterController'
             }).
+            // when('/youtube', {
+            //     templateURL: 'static/components/youtube_login/youtube_loginTemplate.html',
+            //     controller: 'HHYouTubeController'
+            // })
             otherwise({
                 redirectTo: '/instructions'
             });
