@@ -1,27 +1,6 @@
 <div class="container">
-    <h3>Welcome to the #HackHarassment Labeler App</h3>
-    <h4>Instructions:</h4>
-    <p>
-        <ol>    
-            <li>Before starting - please be aware you will be reading comments from a popular online forum platform to find harassing comments. You will be exposed to vulgar language and will likely read things that you find disturbing.</li>
-            <li>Click on "Label"" in the navigation bar </li>
-            <li>You will see a screen showing two buttons: "Not Harassment" and "Harassment" as well as a text
-                comment</li>
-            <li>Read the comment and decide how to label the comment.</li>
-            <li>Do not over-think the label, if you have any doubts default to "Not Harassment"</li>
-            <li>For ease of use, you can utilize the'-' and '=' keys at the end of the number bar atop your keyboard to label.
-                The '-' key corresponds to 'Not Harassment', the '=' key correponds to 'Harassment'.
-            </li>
-            <li>If you need to refer back to this page, please click on 'Home' to be brought back here</li>
-            <li>If you encounter any issues please email the admin at: alexei.a.bastidas@intel.com</li>
-        </ol>
-    </p>
-    <h4>Examples</h4>
-    We are looking to identify examples of harassment. Harassment can take many forms, below are some examples of harassment. These are only examples, if you see anything that you find harassing that does not fit these categories, please still label it as harassing:
-    <ul>
-        <li><b>Author Abuse:</b> Demeaning and insulting speech targeted at the writer of the original comment. For example: "You are so ugly that if you got pregnant I would drive you to the abortion clinic myself.," "You are so unintelligent," "You don't know what you're talking about and should shut the hell up."</li>
-        <li><b>Dismissive Trolling:</b> Comments that much or otherwise dismiss the author or other readers. For example: "k cutie, think what you want... even if youre wrong."</li>
-        <li><b>Hate Speech:</b> Any xenophobic, racist, sexist, homophobic, and any other type of comment that singles out a person on account of any aspects of their identity and tries to put them down for it. Examples include: "niggers are lazy", "this girl loves the d," "look at this fag," and other similar</li>
-        <li><b>Threats of Violence:</b> Any comment threatening violent action against an individual. It could be as straight forward as "I'm gonna kill you," to a more perceived threat such as "I hope someone murders you."</li>
-    </ul>
+    <div ng-include="instructions.view"></div>
+    <button id="instructions-prev-btn" ng-if="instructions.viewShown != 1" ng-click="instructions.prevView()" type="button" class="btn btn-primary">Previous</button>
+    <button id="instructions-next-btn" ng-if="instructions.viewShown != 5" ng-click="instructions.nextView()" type="button" class="btn btn-primary">Next</button>
+    <button id="instructions-end-btn" ng-show="instructions.viewShown === 5" ng-click="instructions.endView()" type="button" class="btn btn-primary">Finish</button>
 </div>

@@ -3,20 +3,22 @@
 </div>
 <div id="landingWrapper">
     <div class="container" id="landingContainer">
-        <div class="row">
-            <div class="col-xs-8" ng-click="landing.toggleLabel()">
+        <div class="row navpanes-landing">
+            <div class="col-xs-6" ng-click="landing.toggleLabel()">
             <!--Labeling-->
-                LABEL
-                <br>.
-                <br>.
-                <br>.
+                <i class="fa fa-globe fa-5x" aria-hidden="true"></i>
             </div>
-            <div class="col-xs-4" ng-click="landing.toggleTwitter()">
+            <div class="col-xs-2" ng-click="landing.toggleTwitter()">
             <!--twitter-->
-            Sync Twitter
-                <br>.
-                <br>.
-                <br>.
+                <i class="fa fa-twitter-square fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="col-xs-2">
+            <!--twitter-->
+                <i class="fa fa-facebook-official fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="col-xs-2">
+            <!--twitter-->
+                <i class="fa fa-youtube-play fa-4x" aria-hidden="true"></i>
             </div>
         </div>
         <div ng-show="landing.label" ng-include="'/static/components/labeler/labelerTemplate.html'" ng-controller="HHLabelController">

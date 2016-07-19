@@ -22,7 +22,8 @@ def make_shell_context():
 
 @manager.command
 def start_db():
-    SEED_FILE_PATH = 'rawseed.csv' 
+    #SEED_FILE_PATH = 'mini_test.csv' 
+    SEED_FILE_PATH = 'rawseed.csv'
     import csv
     db.drop_all()
     db.create_all()

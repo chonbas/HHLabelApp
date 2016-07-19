@@ -1,17 +1,17 @@
 <div class="container">
     <div class="col-md-6">
-        <div class="page-header">
-            <h3>{{main.active_user}}</h3>
-            <h4> Comments Labeled : {{label.label_count}}</h4>
-        </div>
         <div>
-            <button ng-click="label.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
-            <button ng-click="label.chooseHarass()" type="button" class="btn btn-danger">Harassment</button> 
             <div>
-                <br>
-                <h3>Comment:</h3>
-                <p> {{ label.comment.body}}</p>
+                <div class="jumbotron">
+                    <i class="fa fa-quote-left" aria-hidden="true"></i> 
+                    {{ label.comment.body}}
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </div>
             </div>
+            <div class="page-header">
+                <button ng-click="label.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
+                <button ng-click="label.chooseHarass()" type="button" class="btn btn-danger">Harassment</button>
+            </div> 
         </div>
     </div>
     <div ng-include="'/static/components/leaderboard/hhleaderboardTemplate.html'" ng-controller="HHLeaderboardController"></div>

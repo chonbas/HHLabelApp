@@ -28,7 +28,7 @@ HHLabelApp.controller('HHAuthController', ['$scope', '$rootScope', '$resource', 
                     } else{
                         $scope.main.auth_status = res.status;
                         $scope.main.active_user = res.user;
-                        $location.path("/instructions");
+                        $location.path("/home");
                     }
                 });
         };
