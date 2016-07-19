@@ -7,24 +7,20 @@ HHLabelApp.config(['$routeProvider',
                 templateUrl: 'static/components/auth/authTemplate.html',
                 controller: 'HHAuthController'
             }).
-            when('/label', {
-                templateUrl: 'static/components/labeler/labelerTemplate.html',
-                controller: 'HHLabelController'
-            }).
             when('/instructions', {
                 templateUrl: 'static/components/instructions/instructionsTemplate.html',
                 controller: 'HHInstructionsController'
             }).
-            when('/twitter', {
-                templateUrl: 'static/components/twitter_login/twitter_loginTemplate.html',
-                controller: 'HHTwitterController'
+            when('/home', {
+                templateUrl: 'static/components/main_landing/main_landingTemplate.html',
+                controller: 'HHMainLandingController'
             }).
             // when('/youtube', {
             //     templateURL: 'static/components/youtube_login/youtube_loginTemplate.html',
             //     controller: 'HHYouTubeController'
             // })
             otherwise({
-                redirectTo: '/instructions'
+                redirectTo: '/home'
             });
     }]);
 
@@ -74,7 +70,7 @@ HHLabelApp.controller('HHMainController', ['$scope', '$rootScope', '$location', 
                         return;
                     } else {
                         if (next.loadedTemplateUrl === "static/components/auth/authTemplate.html") {
-                            $location.path("/instructions");
+                            $location.path("/home");
                         }
                     }
             });                   

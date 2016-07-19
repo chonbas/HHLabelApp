@@ -45,7 +45,6 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$q', '$resource', 'twit
             $scope.twitter.UploadTweets.save($scope.twitter.cleaned)
                 .$promise.then(function(res){
                     $scope.twitter.uploaded = true;
-                    console.log("done son");
                 }, function(err){
                     console.log(err.data);
                 });

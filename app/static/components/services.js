@@ -53,9 +53,7 @@ angular.module('HHLabelApp.services', []).factory('twitterService', function($q)
             return deferred.promise;
         }
     }
-});
-
-angular.module('HHLabelApp.services', []).factory('youtubeService', function($q) {
+}).factory('youtubeService', function($q) {
 
     var authorizationResult = false;
 

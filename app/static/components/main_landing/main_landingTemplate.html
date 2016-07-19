@@ -1,0 +1,27 @@
+<div class="jumbotron" id="mainBanner">
+    <img class="center-img" src="static/images/HH_logo_light.png"/>
+</div>
+<div id="landingWrapper">
+    <div class="container" id="landingContainer">
+        <div class="row">
+            <div class="col-xs-8" ng-click="landing.toggleLabel()">
+            <!--Labeling-->
+                LABEL
+                <br>.
+                <br>.
+                <br>.
+            </div>
+            <div class="col-xs-4" ng-click="landing.toggleTwitter()">
+            <!--twitter-->
+            Sync Twitter
+                <br>.
+                <br>.
+                <br>.
+            </div>
+        </div>
+        <div ng-show="landing.label" ng-include="'/static/components/labeler/labelerTemplate.html'" ng-controller="HHLabelController">
+        </div>
+        <div ng-show="landing.twitter" ng-include="'/static/components/twitter_login/twitter_loginTemplate.html'" ng-controller="HHTwitterController">
+        </div>
+    </div>
+</div>

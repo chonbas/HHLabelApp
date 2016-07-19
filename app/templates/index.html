@@ -4,33 +4,36 @@
     <title>HackHarassment Labeling Tool</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body ng-app="HHLabelApp" ng-controller="HHMainController" ng-keypress="main.parseKeys($event)" tabindex=0>
-
-    <div class="navbar navbar-inverse" role="navigation">
-        <div class="container">
+   
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand">Tool</a>
+            <a class="navbar-brand" href="#">HackHarassment</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#/instructions">Home</a></li>
-                    <li ng-show="main.auth_status"><a href="#/label">Label</a></li>
-                    <li ng-show="main.auth_status"><a href="#/twitter">Sync Twitter</a></li>
-                    <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
-                    <!--<li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>-->
-                    <li ng-show="!main.auth_status"><a href="/">Login</a></li>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/home">Home</a></li>
+                            <li ng-show="main.auth_status"><a href="#/instructions">Instructions</a></li>
+                            <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
+                            <li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>
+                            <li ng-show="!main.auth_status"><a href="/">Login</a></li>
+                        </ul>
+                    </li>
                 </ul>
-            </div>
-        </div>
-    </div>
+            <!--</div> /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
 
     <div id="contentView" ng-view></div>
 
@@ -46,13 +49,14 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
     <script src="http://pc035860.github.io/angular-easyfb/angular-easyfb.js"></script>
     <script src="{{ url_for('static', filename='components/mainController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/services.js') }}"></script>
     <script src="{{ url_for('static', filename='components/auth/authController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/main_landing/main_landingController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/labeler/labelController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/leaderboard/hhleaderboardController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/totals_widget/totalsController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/instructions/instructionsController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/twitter_login/twitter_loginController.js') }}"></script>
-    <script src="{{ url_for('static', filename='components/services.js') }}"></script>
     <!--<script src="{{ url_for('static', filename='components/fb_login/fb_loginController.js') }}"></script-->
 </body>
 </html>
