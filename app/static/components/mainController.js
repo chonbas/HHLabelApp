@@ -15,10 +15,6 @@ HHLabelApp.config(['$routeProvider',
                 templateUrl: 'static/components/main_landing/main_landingTemplate.html',
                 controller: 'HHMainLandingController'
             }).
-            when('/stats', {
-                templateUrl: 'static/components/stats/statsTemplate.html',
-                controller: 'HHStatsController'
-            }).
             otherwise({
                 redirectTo: '/home'
             });
