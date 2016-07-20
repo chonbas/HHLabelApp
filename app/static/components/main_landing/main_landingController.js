@@ -4,16 +4,26 @@ HHLabelApp.controller('HHMainLandingController', ['$scope', '$rootScope', '$reso
         $scope.landing.viewShown = "Label";
         $scope.landing.label = true;
         $scope.landing.twitter = false;
+        $scope.landing.stats = false;
 
         $scope.landing.toggleLabel = function(){
             $scope.landing.label = true;
-            $scope.landing.twitter = false;            
+            $scope.landing.twitter = false;
+            $scope.landing.stats = false;                        
         };
 
         $scope.landing.toggleTwitter = function(){
-            console.log("works");
             $scope.landing.label = false;
-            $scope.landing.twitter = true;            
+            $scope.landing.twitter = true;
+            $scope.landing.stats = false;            
         };
+
+        $scope.landing.toggleStats = function(){
+            $scope.landing.label = false;
+            $scope.landing.twitter = false;
+            $scope.landing.stats = true;
+        }
+
+
 
 }]);

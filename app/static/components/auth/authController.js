@@ -10,8 +10,8 @@ HHLabelApp.controller('HHAuthController', ['$scope', '$rootScope', '$resource', 
         $scope.auth.error = "";
         $scope.auth.remember_me = false;
 
-        $scope.auth.Login = $resource('/api/login');
-        $scope.auth.Register = $resource('/api/register');
+        $scope.auth.Login = $resource('/auth/login');
+        $scope.auth.Register = $resource('/auth/register');
 
 
         $scope.auth.attemptLogin = function(){
@@ -28,7 +28,12 @@ HHLabelApp.controller('HHAuthController', ['$scope', '$rootScope', '$resource', 
                     } else{
                         $scope.main.auth_status = res.status;
                         $scope.main.active_user = res.user;
-                        $location.path("/home");
+                        if (!res.return){
+                            $location.path("/instructions");
+                        } else {
+                            $location.path("/home");
+                        }
+                        
                     }
                 });
         };

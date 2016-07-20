@@ -15,10 +15,10 @@ HHLabelApp.config(['$routeProvider',
                 templateUrl: 'static/components/main_landing/main_landingTemplate.html',
                 controller: 'HHMainLandingController'
             }).
-            // when('/youtube', {
-            //     templateURL: 'static/components/youtube_login/youtube_loginTemplate.html',
-            //     controller: 'HHYouTubeController'
-            // })
+            when('/stats', {
+                templateUrl: 'static/components/stats/statsTemplate.html',
+                controller: 'HHStatsController'
+            }).
             otherwise({
                 redirectTo: '/home'
             });
@@ -31,7 +31,7 @@ HHLabelApp.controller('HHMainController', ['$scope', '$rootScope', '$location', 
         $scope.main.CheckLogin = $resource('/check');
         $scope.main.auth_status = false;
         $scope.main.active_user = "";
-        $scope.main.Logout = $resource('/api/logout');
+        $scope.main.Logout = $resource('/auth/logout');
 
         $scope.main.attemptLogout = function(){
             $scope.main.Logout.get()

@@ -4,9 +4,13 @@
 <div id="landingWrapper">
     <div class="container" id="landingContainer">
         <div class="row navpanes-landing">
-            <div class="col-xs-6" ng-click="landing.toggleLabel()">
+            <div class="col-xs-3" ng-click="landing.toggleLabel()">
             <!--Labeling-->
                 <i class="fa fa-globe fa-5x" aria-hidden="true"></i>
+            </div>
+            <div class="col-xs-3" ng-click="landing.toggleStats()">
+            <!--Leaderboards/statistics-->
+                <i class="fa fa-heartbeat fa-4x" aria-hidden="true"></i>
             </div>
             <div class="col-xs-2" ng-click="landing.toggleTwitter()">
             <!--twitter-->
@@ -24,6 +28,8 @@
         <div ng-show="landing.label" ng-include="'/static/components/labeler/labelerTemplate.html'" ng-controller="HHLabelController">
         </div>
         <div ng-show="landing.twitter" ng-include="'/static/components/twitter_login/twitter_loginTemplate.html'" ng-controller="HHTwitterController">
+        </div>
+        <div ng-show="landing.stats" ng-include="'/static/components/stats/statsTemplate.html'" ng-controller="HHStatsController">
         </div>
     </div>
 </div>

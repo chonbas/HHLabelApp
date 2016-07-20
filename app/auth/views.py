@@ -17,7 +17,16 @@ def check():
     resp.status_code = 200
     return resp
 
-@auth.route('/api/register', methods=['POST'])
+@auth.route('/auth/toggleReturn', methods=['GET'])
+@login_required
+def toggleReturn():
+    current_user.return_user = True
+    db.session.commit()
+    resp = Response(status=200)
+    return resp
+
+
+@auth.route('/auth/register', methods=['POST'])
 def api_register():
     data = json.loads(request.data.decode())
     email_test = User.query.filter_by(email=data['email']).first()
@@ -39,20 +48,20 @@ def api_register():
     resp.status_code = 200
     return resp
 
-@auth.route('/api/login', methods=['POST'])
+@auth.route('/auth/login', methods=['POST'])
 def api_login():
     data = json.loads(request.data.decode())
     user = User.query.filter_by(email=data['email']).first()
     if user is not None and user.verify_password(data['password']):
         login_user(user, data['remember_me'])
-        resp = jsonify({'status':True, 'user':user.username})
+        resp = jsonify({'status':True, 'user':user.username, 'return':user.return_user})
         resp.status_code = 200
         return resp
     resp = jsonify({'status':False})
     resp.status_code = 200
     return resp
 
-@auth.route('/api/logout', methods=['GET'])
+@auth.route('/auth/logout', methods=['GET'])
 @login_required
 def api_logout():
     logout_user()

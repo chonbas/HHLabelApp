@@ -12,21 +12,21 @@
    
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
+            <div class="navbar-header" style="width:10%;">
                 <a class="navbar-brand" href="#">HackHarassment</a>
             </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#/home">Home</a></li>
-                            <li ng-show="main.auth_status"><a href="#/instructions">Instructions</a></li>
-                            <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
-                            <li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>
-                            <li ng-show="!main.auth_status"><a href="/">Login</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/home">Home</a></li>
+                        <li ng-show="main.auth_status"><a href="#/instructions">Instructions</a></li>
+                        <li ng-show="main.auth_status"><a href="" ng-click="main.attemptLogout()">Logout</a></li>
+                        <li ng-show="main.auth_status"><a href="/downloadComments">Download Comments</a></li>
+                        <li ng-show="!main.auth_status"><a href="/">Login</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div><!-- /.container-fluid -->
     </nav>
 
@@ -53,6 +53,7 @@
     <script src="{{ url_for('static', filename='components/totals_widget/totalsController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/instructions/instructionsController.js') }}"></script>
     <script src="{{ url_for('static', filename='components/twitter_login/twitter_loginController.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/stats/statsController.js') }}"></script>
     <!--<script src="{{ url_for('static', filename='components/fb_login/fb_loginController.js') }}"></script-->
 </body>
 </html>

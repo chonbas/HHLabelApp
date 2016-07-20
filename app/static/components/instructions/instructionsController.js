@@ -3,6 +3,7 @@ HHLabelApp.controller('HHInstructionsController', ['$scope','$rootScope', '$reso
 function($scope, $rootScope, $resource, $location){
     $scope.instructions = {};
     $scope.instructions.viewShown = 1;
+    $scope.instructions.ToggleReturnUser = $resource('/auth/toggleReturn');
 
     $scope.instructions.setView = function(index){
         $scope.instructions.view = "/static/components/instructions/panes/instructions" + index +".html";
@@ -21,8 +22,14 @@ function($scope, $rootScope, $resource, $location){
     };
 
     $scope.instructions.endView = function(){
-        $scope.instructions.setView($scope.instructions.viewShown);
-        $location.path("/home");
+        $scope.instructions.ToggleReturnUser.get()
+            .$promise.then(
+                function(){
+                    $location.path("/home");
+                }, function(err){
+                    console.log(err.data);
+                }
+            );
     };
 
 }]);

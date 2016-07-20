@@ -8,9 +8,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12" id="results">
-                <ol>
                     <div ng-show="twitter.maxed" class="row" ng-repeat="t in twitter.tweets">
-                            <li>
                             <div class="col-xs-2 col-sm-1">
                                 <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
                             </div>
@@ -18,9 +16,7 @@
                                 <small>{{t.user.name}}</small>
                                 <br> <span>{{t.text}}</span>
                             </div>
-                            </li>
                     </div>
-                </ol>
                 <div ng-show="twitter.rateLimitError">
                     Unluckily, Twitter's servers are currenlty overloaded. Try again later.
                 </div>

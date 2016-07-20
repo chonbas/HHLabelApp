@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
+    return_user = db.Column(db.Boolean, default=False)
     password_hash = db.Column(db.String(128))
     labeled = db.relationship('Label', backref='labeler', lazy='dynamic')
     label_count = db.Column(db.Integer, default=0)
