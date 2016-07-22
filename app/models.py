@@ -10,14 +10,14 @@ class User(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    return_user = db.Column(db.Boolean, default=False)
-    password_hash = db.Column(db.String(128))
-    labeled = db.relationship('Label', backref='labeler', lazy='dynamic')
-    label_count = db.Column(db.Integer, default=0)
-    facebook_data = db.Column(db.Boolean, default=False)
-    twitter_data = db.Column(db.Boolean, default=False)
-    google_data = db.Column(db.Boolean, default=False)
+    username = db.Column(db.String(64), unique=True, index=True) 
+    return_user = db.Column(db.Boolean, default=False) #flag if return user  used to check if tutorial is required on login
+    password_hash = db.Column(db.String(128)) #password hash
+    labeled = db.relationship('Label', backref='labeler', lazy='dynamic') #array of queries tied to labels assigned
+    label_count = db.Column(db.Integer, default=0) #count of how many labels a user has made
+    twitter_score = db.Column(db.Integer) #store last computed twitter score so user can refer to it
+    twitter_recent_id = db.Column(db.String(64)) #store most recent tweet_id to ensure no duplicats ingested
+
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -47,7 +47,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
-    source = db.Column(db.String(64))
+    source = db.Column(db.String(64)) #string to store source - currently 'reddit' or 'twitter', used to render source icon
     labels = db.relationship('Label', backref='comment', lazy='dynamic')
 
 class Label(db.Model):

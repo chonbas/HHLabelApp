@@ -1,22 +1,37 @@
 <div class="container">
         <h1>How nice are you on Twitter?</h1>
         <div class="row">
-            <div class="col-xs-6">
+            <div>
                 <button ng-click="twitter.connectButton()" id="connectButton" type="button" class="btn btn-primary">Connect Twitter</button>
                 <button ng-click="twitter.signOut()" id="signOut" type="button" class="btn btn-link" style="display:none;">Sign Out</button>
+                <span ng-show="twitter.score != null && !twitter.show_tweets" class="pull-right">
+                    Your Twitter score: {{twitter.score}}%
+                </span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12" id="results">
-                    <div ng-show="twitter.maxed" class="row" ng-repeat="t in twitter.tweets">
-                            <div class="col-xs-2 col-sm-1">
-                                <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
-                            </div>
-                            <div class="col-xs-10 col-sm-11">
-                                <small>{{t.user.name}}</small>
-                                <br> <span>{{t.text}}</span>
-                            </div>
+        <div>
+            <div id="twitter-results" ng-show="twitter.show_tweets">
+                <div class="page-header">
+                    <div ng-show="twitter.score === 100">
+                        <h3>Congratulations, you scored 100%!</h3>
+                        <p>Our algorithm determined that none of your Tweets were harassing! Keep keeping the internet awesome!</p>
+                    </div>     
+                    <div ng-show="twitter.score < 100">
+                        <h3>Your new Twitter score is: {{twitter.score}}</h3>
+                        <p>The Tweets you made that our algorithm found to be harassing are shown below.
+                             If you think we made a mistake please click <a ng-click="landing.toggleLabel()">here </a>to help 
+                             us improve by labeling other comments.</p>
+                    </div>      
+                </div>
+                <div class="row" ng-show="twitter.show_tweets">
+                    <h3>Showing Tweet No.{{twitter.active.index + 1}} out of {{twitter.harass_tweets.length}}</h3>
+                    <div class="jumbotron lim-width-jumbo center-block">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                            {{ twitter.active.body}}
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
                     </div>
+                    <button ng-show="twitter.harass_tweets.length > 1" ng-click="twitter.viewNextTweet()" type="button" class="btn btn-primary">Next</button>
+                </div>
                 <div ng-show="twitter.rateLimitError">
                     Unluckily, Twitter's servers are currenlty overloaded. Try again later.
                 </div>

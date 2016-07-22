@@ -1,4 +1,4 @@
-import json
+import json, random
 from flask import render_template, redirect, Response,request, url_for, flash, g, jsonify, send_file
 from flask_login import login_user, logout_user, login_required, \
     current_user
@@ -74,8 +74,8 @@ def getTotals():
 @api.route('/checkTwitter', methods=['GET'])
 @login_required
 def checkTwitter():
-    status = current_user.twitter_data
-    resp = jsonify({'status':status})
+    score = current_user.twitter_score
+    resp = jsonify({'score':score})
     resp.status_code = 200
     return resp
 
@@ -94,9 +94,28 @@ def ingestTwitter():
     for tweet in data:
         new_comment = Comment(body=tweet['body'], source='twitter')
         db.session.add(new_comment)
-    current_user.twitter_data = True
+    #######
+    ####### STUBBING 
+    ####### Actual score should be calculated by classifier api (not yet setup)
+    ####### inefficient double loop is only to highlight that this is stubbing
+    harassing_tweets = []
+    for tweet in data:
+        random_num = random.randint(0,100)
+        if random_num >= 80:
+            harassing_tweets.append(tweet)
+    num_ingested_tweets = len(data)
+    num_normal_tweets = num_ingested_tweets - len(harassing_tweets)
+    percent_score = float(num_normal_tweets) / float(num_ingested_tweets)
+    twitter_score = int(100 * percent_score)
+    current_user.twitter_score = twitter_score
     db.session.commit()
-    resp = Response(status=200, mimetype='application/json')
+    resp = jsonify({'score':twitter_score, 'tweets':harassing_tweets})
+    resp.status_code = 200
+    ##########
+    ###########
+    ##
+    #/endstub
+    # resp = Response(status=200, mimetype='application/json')
     return resp
     
 

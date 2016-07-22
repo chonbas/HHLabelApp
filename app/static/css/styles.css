@@ -31,3 +31,7 @@
   .lim-width-cats-span{
     max-width: 600px;
   }
+
+  #comment-source-icon{
+    margin-top: -30px;
+  }

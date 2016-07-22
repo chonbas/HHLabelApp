@@ -15,7 +15,8 @@ HHLabelApp.controller('HHMainLandingController', ['$scope', '$rootScope', '$reso
         $scope.landing.toggleTwitter = function(){
             $scope.landing.label = false;
             $scope.landing.twitter = true;
-            $scope.landing.stats = false;            
+            $scope.landing.stats = false;
+            $rootScope.$broadcast('toggleTwitter', 'togglingTwitter');            
         };
 
         $scope.landing.toggleStats = function(){
