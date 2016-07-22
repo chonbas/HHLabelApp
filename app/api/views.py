@@ -33,7 +33,7 @@ def saveComment():
     comment_id = data['comment_id']
     comment_update = Comment.query.filter_by(id=comment_id).first()
     current_user.label_count += 1
-    new_label = Label(harassment =  data['label'])
+    new_label = Label(harassment =  data['label'], category = data['category'])
     new_label.comment = comment_update
     new_label.labeler = current_user
     db.session.add(new_label)
@@ -90,7 +90,7 @@ def checkFB():
 def ingestTwitter():
     data = json.loads(request.data.decode())
     for tweet in data:
-        new_comment = Comment(body=tweet['body'])
+        new_comment = Comment(body=tweet['body'], source='twitter')
         db.session.add(new_comment)
     current_user.twitter_data = True
     db.session.commit()

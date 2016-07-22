@@ -47,6 +47,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
+    source = db.Column(db.String(64))
     labels = db.relationship('Label', backref='comment', lazy='dynamic')
 
 class Label(db.Model):
@@ -54,4 +55,5 @@ class Label(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     labeler_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    category = db.Column(db.String(64))
     harassment = db.Column(db.Boolean)

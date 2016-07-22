@@ -37,7 +37,7 @@ def start_db():
             if len(row) == 0:
                 continue
             text = unicode(row[0], errors='replace')
-            new_comment = Comment(body=text)
+            new_comment = Comment(body=text, source="reddit")
             db.session.add(new_comment)
     db.session.commit()
     return

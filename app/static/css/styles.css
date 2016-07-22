@@ -8,8 +8,8 @@
   .navbar-default {
     margin-bottom: 0;
   }
-  .nav.navbar-nav.navbar-right {
-    background-color: #80d4ff;   
+  .navbar {
+    background-color: #cceeff;
   }
   .jumbotron {
       background-color: #cceeff;
@@ -27,4 +27,7 @@
   }
   .lim-width-btn-box{
     max-width: 250px;
+  }
+  .lim-width-cats-span{
+    max-width: 600px;
   }
