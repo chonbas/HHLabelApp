@@ -7,6 +7,7 @@ function($scope, $rootScope, $resource, $http, $sanitize){
     $scope.label.comment.id = "";
     $scope.label.comment.label = "";
     $scope.label.comment.category = "";
+    $scope.label.comment.source = "";
     $scope.label.label_count = 0;
     $scope.label.active = true;
     $scope.label.GetNextComment = $resource('/getComment');
@@ -43,6 +44,7 @@ function($scope, $rootScope, $resource, $http, $sanitize){
                 $scope.label.active = true;
                 $scope.label.comment.body = comment.body;
                 $scope.label.comment.id = comment.id;
+                $scope.label.comment.source = comment.source;
                 $scope.label.label_count = comment.count;
                 if (comment.count % 10 === 0){
                     $rootScope.$broadcast('updateLeaders', 'updatingLeaders');

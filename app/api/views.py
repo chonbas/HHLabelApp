@@ -14,10 +14,12 @@ def getComment():
     if next_comment is not None:
         next_body = next_comment.body
         next_id = next_comment.id
+        next_source = next_comment.source
     else:
         next_body = "Congratulations you have labeled all available comments."
         next_id =-1 #flag to prevent future queries
-    resp = jsonify({'body':next_body, 'id':next_id, 'count':label_count})
+        next_source = ''
+    resp = jsonify({'body':next_body, 'id':next_id, 'count':label_count, 'source':next_source})
     resp.status_code = 200
     return resp
 
