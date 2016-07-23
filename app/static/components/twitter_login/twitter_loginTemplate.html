@@ -4,8 +4,9 @@
             <div>
                 <button ng-click="twitter.connectButton()" id="connectButton" type="button" class="btn btn-primary">Connect Twitter</button>
                 <button ng-click="twitter.signOut()" id="signOut" type="button" class="btn btn-link" style="display:none;">Sign Out</button>
+                <button ng-click="twitter.refreshTimeline()" id="resyncButton" type="button" class="btn btn-primary" style="display:none;">Refresh Score</button>
                 <span ng-show="twitter.score != null && !twitter.show_tweets" class="pull-right">
-                    Your Twitter score: {{twitter.score}}%
+                    <h3>Your last Twitter score was: {{twitter.score}}%</h3>
                 </span>
             </div>
         </div>
@@ -24,13 +25,12 @@
                     </div>      
                 </div>
                 <div class="row" ng-show="twitter.show_tweets">
-                    <h3>Showing Tweet No.{{twitter.active.index + 1}} out of {{twitter.harass_tweets.length}}</h3>
+                    <h3>Showing Tweet No.{{twitter.active.index + 1}} out of {{twitter.harass_tweets.length}} <button ng-show="twitter.harass_tweets.length > 1" ng-click="twitter.viewNextTweet()" type="button" class="btn btn-link">Next</button></h3>
                     <div class="jumbotron lim-width-jumbo center-block">
                         <i class="fa fa-quote-left" aria-hidden="true"></i>
                             {{ twitter.active.body}}
                         <i class="fa fa-quote-right" aria-hidden="true"></i>
                     </div>
-                    <button ng-show="twitter.harass_tweets.length > 1" ng-click="twitter.viewNextTweet()" type="button" class="btn btn-primary">Next</button>
                 </div>
                 <div ng-show="twitter.rateLimitError">
                     Unluckily, Twitter's servers are currenlty overloaded. Try again later.

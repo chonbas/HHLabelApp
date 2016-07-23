@@ -25,7 +25,27 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
 
         //using the OAuth authorization result get as many tweets as possible before hitting the 
         //api limit / and/or running out of tweets to pull
+        // $scope.twitter.refreshTimeline = function(maxId) {
+        //     $scope.twitter.tweets = [];
+        //     $scope.twitter.prev_id = 0;
+        //     twitterService.getLatestTweets(maxId).then(function(data) {
+        //         var temp = [].concat(data);
+
+        //         //check to see if last payload from twitter api was undefined,
+        //         //ie. this checks to see if we already pulled all tweets available
+        //         if ((typeof temp[temp.length - 1])  !== 'undefined'){
+
+        //         }
+        //     }, function(err){
+
+        //     });
+        // }
+
+
+
         $scope.twitter.refreshTimeline = function(maxId) {
+            // $scope.twitter.tweets = [];
+            // $scope.twitter.prev_id = 0;
             twitterService.getLatestTweets(maxId).then(function(data) {
                 var temp = [].concat(data);
                 if ((typeof temp[temp.length -1]) !== 'undefined'){
@@ -34,7 +54,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
                     }
                     $scope.twitter.tweets = $scope.twitter.tweets.concat(data);
                     $scope.twitter.prev_id = $scope.twitter.tweets[$scope.twitter.tweets.length-1].id;
-                    if ($scope.twitter.maxed !== true){
+                    if ($scope.twitter.maxed === true){
                         $scope.twitter.refreshTimeline($scope.twitter.prev_id);
                     }
                 } else{
@@ -52,6 +72,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
 
 
         $scope.twitter.uploadTweets = function(){
+            $scope.twitter.harass_tweets = [];
             $scope.twitter.maxed = true;
             $scope.twitter.cleaned = $scope.twitter.tweets.map(function(tweet){
                 var stripped_tweet = tweet.text.replace(/@\w+\s/, "@person ").replace(/RT\s:\s/, " ");
@@ -62,9 +83,11 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
                 .$promise.then(function(res){
                     $scope.twitter.score = res.score;
                     $scope.twitter.harass_tweets = res.tweets;
-                    $scope.twitter.show_tweets = true;
                     if (res.tweets.length > 0){
                         $scope.twitter.active = {'index':0, 'body':res.tweets[0].body};
+                        $scope.twitter.show_tweets = true;
+                    } else {
+                        $scope.twitter.show_tweets = false;
                     }
                 }, function(err){
                     console.log(err.data);
@@ -89,7 +112,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
                 if (twitterService.isReady()) {
                     //if the authorization is successful, hide the connect button and display the tweets
                     $('#connectButton').fadeOut(function() {
-                        $('#getTimelineButton, #signOut').fadeIn();
+                        $('#resyncButton, #signOut').fadeIn();
                         $scope.twitter.refreshTimeline();
                     });
                 } else {
@@ -98,14 +121,16 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
             });
         }
 
+
         //sign out clears the OAuth cache, the user will have to reauthenticate when returning
         $scope.twitter.signOut = function() {
             twitterService.clearCache();
             $scope.twitter.tweets.length = 0;
-            $('#getTimelineButton, #signOut').fadeOut(function() {
+            $('#resyncButton, #signOut').fadeOut(function() {
                 $('#connectButton').fadeIn();
             });
             $scope.twitter.maxed = false;
+            $scope.twitter.show_tweets = false;
             $scope.twitter.prev_id = 0;
         }
 
@@ -113,8 +138,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
             //if the user is a returning user, hide the sign in button and display the tweets
             if (twitterService.isReady()) {
                 $('#connectButton').hide();
-                $('#getTimelineButton, #signOut').show();
-                //$scope.twitter.refreshTimeline();
+                $('#resyncButton, #signOut').show();
             }
         };
 
