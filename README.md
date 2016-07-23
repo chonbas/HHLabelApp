@@ -14,16 +14,17 @@ $ python manage.py runserver
 ```
 
 # Files Included:
-manage.py - framework to manage development environment/localhosting
-config.py - configuration file, split into different classes, specifying the app's configuration
-app/ - Primary app folder
-app/models.py - Database model definitions
-app/__init__.py - initialization file for application
-app/static - static resources
-app/static/templates/index.html - AngularJS Single Page Application- ie, the client/front-end
-app/static/components/ - All the AngularJS components, and associated controllers and templates, utilized by the single page app
-app/static/css - Custom style sheet
-app/static/images - Images
-app/static/api/views.py - Route definitions for the REST API
-app/static/auth/views.py - Route definitions to handle logins/registrations as part of our REST API
- 
+<ul>
+<li>manage.py - framework to manage development environment/localhosting</li>
+<li>config.py - configuration file, split into different classes, specifying the app's configuration</li>
+<li>app/ - Primary app folder</li>
+<li>app/models.py - Database model definitions</li>
+<li>app/_init_.py - initialization file for application</li>
+<li>app/static - static resources</li>
+<li>app/static/templates/index.html - AngularJS Single Page Application- ie, the client/front-end</li>
+<li>app/static/components/ - All the AngularJS components, and associated controllers and templates, utilized by the single page app</li>
+<li>app/static/css - Custom style sheet</li>
+<li>app/static/images - Images</li>
+<li>app/static/api/views.py - Route definitions for the REST API</li>
+<li>app/static/auth/views.py - Route definitions to handle logins/registrations as part of our REST API</li>
+ </ul>
