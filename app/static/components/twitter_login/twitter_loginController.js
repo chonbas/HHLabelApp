@@ -54,7 +54,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
                     }
                     $scope.twitter.tweets = $scope.twitter.tweets.concat(data);
                     $scope.twitter.prev_id = $scope.twitter.tweets[$scope.twitter.tweets.length-1].id;
-                    if ($scope.twitter.maxed === true){
+                    if ($scope.twitter.maxed !== true){
                         $scope.twitter.refreshTimeline($scope.twitter.prev_id);
                     }
                 } else{
