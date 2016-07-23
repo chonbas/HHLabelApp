@@ -1,3 +1,17 @@
+# -----------------------------------------------------------
+# File: app/__init__.py
+# Description:
+# Initalization file for server application.
+# Injects login manager, sqlalchemy ORM for database interactions,
+# and registers route blueprints from sub-modules
+#
+# Usage:
+# from app import create_app, db
+# app = create_app('config')
+# This step is handled in development by the manager, 
+# and in production by the wsgi.py config file.
+# -----------------------------------------------------------
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -26,6 +40,14 @@ def create_app(config_name):
     app.register_blueprint(auth_blueprint)
 
     
+
+    #````````````````````````````````````````
+    # Route to root domain directory.
+    # Servex index.html file which houses angular application.
+    # This is being served through this application for development purposes.
+    # In production,the client/front-end application will be server separately and this application
+    # will serve only as a REST API
+    #````````````````````````````````````````
     @app.route('/', methods=['GET', 'POST'])
     def index():
         return render_template('index.html')

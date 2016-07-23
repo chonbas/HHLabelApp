@@ -12,3 +12,18 @@ $ pip install -r requirements.txt
 $ python manage.py start_db
 $ python manage.py runserver
 ```
+
+# Files Included:
+manage.py - framework to manage development environment/localhosting
+config.py - configuration file, split into different classes, specifying the app's configuration
+app/ - Primary app folder
+app/models.py - Database model definitions
+app/__init__.py - initialization file for application
+app/static - static resources
+app/static/templates/index.html - AngularJS Single Page Application- ie, the client/front-end
+app/static/components/ - All the AngularJS components, and associated controllers and templates, utilized by the single page app
+app/static/css - Custom style sheet
+app/static/images - Images
+app/static/api/views.py - Route definitions for the REST API
+app/static/auth/views.py - Route definitions to handle logins/registrations as part of our REST API
+ 
