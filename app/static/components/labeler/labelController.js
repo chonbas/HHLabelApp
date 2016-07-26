@@ -33,6 +33,10 @@ function($scope, $rootScope, $resource, $http, $sanitize){
         $scope.label.pushComment();
     };
 
+    $scope.label.cancelHarass = function(){
+        $scope.label.active = true;
+    }
+
     $scope.label.chooseNotHarass = function(){
         $scope.label.comment.label = false;
         $scope.label.pushComment();
