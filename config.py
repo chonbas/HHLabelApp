@@ -47,10 +47,8 @@ class DevelopmentConfig(Config):
 # If environemnt variable not specified, app defaults to sqlite
 class ProductionConfig(Config):
     HOST = '0.0.0.0'
-    if os.environ.get('DATABASE_URL') is None:
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-    else:
-        SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+
 
     @classmethod
     def init_app(cls, app):
