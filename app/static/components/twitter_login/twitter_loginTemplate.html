@@ -4,7 +4,7 @@
             <div>
                 <button ng-click="twitter.connectButton()" id="connectButton" type="button" class="btn btn-primary">Connect Twitter</button>
                 <button ng-click="twitter.signOut()" id="signOut" type="button" class="btn btn-link" style="display:none;">Sign Out</button>
-                <button ng-click="twitter.refreshTimeline()" id="resyncButton" type="button" class="btn btn-primary" style="display:none;">Refresh Score</button>
+                <button ng-click="twitter.pullTweets()" id="resyncButton" type="button" class="btn btn-primary" style="display:none;">Refresh Score</button>
                 <span ng-show="twitter.score != null && !twitter.show_tweets" class="pull-right">
                     <h3>Your last Twitter score was: {{twitter.score}}%</h3>
                 </span>
