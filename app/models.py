@@ -78,7 +78,7 @@ class User(UserMixin, db.Model):
     labeled = db.relationship('Label', backref='labeler', lazy='dynamic') #array of queries tied to labels assigned
     label_count = db.Column(db.Integer, default=0) #count of how many labels a user has made
     twitter_score = db.Column(db.Integer) #store last computed twitter score so user can refer to it
-    twitter_recent_id = db.Column(db.String(64)) #store most recent tweet_id to ensure no duplicats ingested
+    twitter_recent_id = db.Column(db.String(64), default='') #store most recent tweet_id to ensure no duplicats ingested
 
 
     def __init__(self, **kwargs):

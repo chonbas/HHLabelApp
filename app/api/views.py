@@ -166,10 +166,20 @@ def checkTwitter():
 @api.route('/ingestTwitter', methods=['POST'])
 @login_required
 def ingestTwitter():
+    current_max_id = 0
+    if current_user.twitter_recent_id != '':
+        current_max_id = long(current_user.twitter_recent_id)
     data = json.loads(request.data.decode())
+    last_id = 0
     for tweet in data:
-        new_comment = Comment(body=tweet['body'], source='twitter')
-        db.session.add(new_comment)
+        tweet_id = long(tweet['id'])
+        if tweet_id > current_max_id:
+            if tweet_id > last_id:
+                last_id = tweet_id
+            new_comment = Comment(body=tweet['body'], source='twitter')
+            db.session.add(new_comment)
+    if last_id != 0:
+        current_user.twitter_recent_id = str(last_id)
     #######
     ####### STUBBING 
     ####### Actual score should be calculated by classifier api (not yet setup)
