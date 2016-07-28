@@ -1,0 +1,13 @@
+<div class="col-md-3" id="leaderboardContainer">
+    <div class="page-header">
+        <h3>Leaderboard:</h3>
+        <h5>Last updated {{leaderboard.time_updated}}</h5>
+    </div>
+    <div>
+        <ol>
+            <li ng-repeat="score in leaderboard.leaderboard">
+                <h5>{{score.username}} - {{score.labelCount}}</h5>
+            </li>
+        </ol>
+    </div>          
+</div>

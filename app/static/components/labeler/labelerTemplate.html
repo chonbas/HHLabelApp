@@ -1,0 +1,34 @@
+<div class="container">
+    <!--<div class="col-md-6">-->
+        <div >
+            <div>
+                <div class="jumbotron lim-width-jumbo center-block">
+                    <i id="comment-source-icon" class="fa fa-{{label.comment.source}} fa-2x pull-left" aria-hidden="true"></i>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        {{ label.comment.body}}
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div >
+                <span class="lim-width-btn-span center-block">
+                    <span ng-show="label.active" class="lim-width-btn-box center-block">
+                        <button ng-click="label.chooseNotHarass()" type="button" class="btn btn-primary">Not Harassment</button>
+                        <button ng-click="label.chooseHarass()" type="button" class="btn btn-danger">Harassment</button>
+                    </span>
+                </span>
+                <span class="lim-width-cats-span center-block" ng-show="!label.active">
+                        <h4>Please select a category for the type of Harassment</h4>
+                        <button ng-click="label.cancelHarass()" type="button" class="btn btn-primary btn-sm">Go Back</button>
+                        <button ng-click="label.chooseHarass('violence')" type="button" class="btn btn-danger btn-sm">Violent Threat</button>
+                        <button ng-click="label.chooseHarass('body')" type="button" class="btn btn-danger btn-sm">Body Shaming</button>
+                        <button ng-click="label.chooseHarass('race')" type="button" class="btn btn-danger btn-sm">Racism</button>
+                        <button ng-click="label.chooseHarass('gender')" type="button" class="btn btn-danger btn-sm">Gender Shaming</button>
+                        <button ng-click="label.chooseHarass('sexual')" type="button" class="btn btn-danger btn-sm">Sexual Orientation</button>
+                        <button ng-click="label.chooseHarass('suicide')" type="button" class="btn btn-danger btn-sm">Suicidal Ideation</button>
+                        <button ng-click="label.chooseHarass('profanity')" type="button" class="btn btn-danger btn-sm">Profanity</button>
+                        <button ng-click="label.chooseHarass('other')" type="button" class="btn btn-danger btn-sm">Other</button>
+                    </span>
+            </div> 
+        </div>
+    <!--</div>-->
+</div>

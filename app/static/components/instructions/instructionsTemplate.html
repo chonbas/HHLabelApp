@@ -1,0 +1,14 @@
+<div class="container">
+    <div ng-include="instructions.view"></div>
+    <div class="row">
+        <button id="instructions-prev-btn" ng-if="instructions.viewShown != 1" ng-click="instructions.prevView()" type="button" class="btn btn-primary pull-left">
+            <i class="fa fa-step-backward fa-2x" aria-hidden="true"></i>
+        </button>
+        <button id="instructions-next-btn" ng-if="instructions.viewShown != 2" ng-click="instructions.nextView()" type="button" class="btn btn-primary pull-right">
+            <i class="fa fa-step-forward fa-2x" aria-hidden="true"></i>
+        </button>
+        <button id="instructions-end-btn" ng-show="instructions.viewShown === 2" ng-click="instructions.endView()" type="button" class="btn btn-primary pull-right">
+            <i class="fa fa-stop-circle fa-2x" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
