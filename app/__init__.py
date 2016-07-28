@@ -19,11 +19,16 @@ from flask import render_template
 from flask_login import login_required
 from config import config
 
+from sklearn.externals import joblib
+from sklearn.ensemble import GradientBoostingClassifier
+
 db = SQLAlchemy()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'index'
+
+clf = joblib.load('pkl/gbc_classifier.pkl')
 
 def create_app(config_name):
     app = Flask(__name__)

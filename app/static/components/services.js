@@ -5,7 +5,7 @@ angular.module('HHLabelApp.services', []).factory('twitterService', function($q)
     return {
         initialize: function() {
             //initialize OAuth.io with public key of the application
-            OAuth.initialize('0V32AqwVcQ6JyyNcLfaiGwt0Uzw', {
+            OAuth.initialize('i80pywmnQt-eA0sMc3fv40eRAJI', {
                 cache: true
             });
             //try to create an authorization result when the page loads,
@@ -26,7 +26,7 @@ angular.module('HHLabelApp.services', []).factory('twitterService', function($q)
                     deferred.resolve();
                 } else {
                     //do something if there's an error
-
+                    console.log(error);
                 }
             });
             return deferred.promise;

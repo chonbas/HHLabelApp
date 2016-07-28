@@ -26,6 +26,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
         //using the OAuth authorization result get as many tweets as possible before hitting the 
         //api limit / and/or running out of tweets to pull
         $scope.twitter.refreshTimeline = function(prev_id){
+            console.log("pulling");
             twitterService.getLatestTweets(prev_id).then(function(data) {
                     var temp = [].concat(data);
                     //check to see if last payload from twitter api was undefined,
@@ -46,7 +47,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
                     $scope.twitter.refreshTimeline($scope.twitter.prev_id);
                 }, function(err){
                     $scope.twitter.uploadTweets();
-                    console.log('rateLimitError')
+                    console.log('rateLimitError');
                 });
 
         }
@@ -62,26 +63,25 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
             $scope.twitter.harass_tweets = [];
             console.log($scope.twitter.tweets);
             $scope.twitter.cleaned = $scope.twitter.tweets.map(function(tweet){
-                var stripped_tweet = tweet.text.replace(/@\w+\s/, "@person ").replace(/RT\s:\s/, " ");
+                var stripped_tweet = tweet.text.replace(/@\s*\w+\s/, "@person ").replace(/RT\s:\s/, " ");
                 var cleanedTweet = {'body':stripped_tweet, 'id': tweet.id};
                 return cleanedTweet;
             });
             if ($scope.twitter.tweets.length === 0){
                 console.log('here');
-                //som error message about no tweets
                 return;
             }
             $scope.twitter.UploadTweets.save($scope.twitter.cleaned)
                 .$promise.then(function(res){
-                    console.log('result = ' +res);
                     $scope.twitter.score = res.score;
                     $scope.twitter.harass_tweets = res.tweets;
                     if (res.tweets.length > 0){
-                        $scope.twitter.active = {'index':0, 'body':res.tweets[0].body};
+                        $scope.twitter.active = {'index':0, 'body':res.tweets[0]};
                         $scope.twitter.show_tweets = true;
                     } else {
                         $scope.twitter.show_tweets = false;
                     }
+                    console.log(res);
                 }, function(err){
                     console.log(err.data);
                 });
@@ -95,7 +95,7 @@ HHLabelApp.controller('HHTwitterController', ['$scope', '$rootScope', '$q', '$re
                 } else {
                     cur_index++;
                 }
-                $scope.twitter.active = {'index':cur_index, 'body':$scope.twitter.harass_tweets[cur_index].body};
+                $scope.twitter.active = {'index':cur_index, 'body':$scope.twitter.harass_tweets[cur_index]};
         }
 
 

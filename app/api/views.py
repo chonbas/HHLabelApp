@@ -14,8 +14,17 @@ from flask import render_template, redirect, Response,request, url_for, flash, g
 from flask_login import login_user, logout_user, login_required, \
     current_user
 from . import api
-from .. import db
+from .. import db, clf
 from ..models import User, Comment, Label
+
+from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from scipy.sparse import coo_matrix, hstack
+import numpy as np
+from nltk.tokenize import TweetTokenizer
+from swear_dict import swear_dict
+
 
 
 
@@ -169,10 +178,12 @@ def ingestTwitter():
     current_max_id = 0
     if current_user.twitter_recent_id != '':
         current_max_id = long(current_user.twitter_recent_id)
-    data = json.loads(request.data.decode())
+    data = json.loads(request.data.decode('utf-8'))
     last_id = 0
+    tweets_for_score = [] # PART OF CLASSIFIER STUB
     for tweet in data:
         tweet_id = long(tweet['id'])
+        tweets_for_score.append(tweet['body']) ##PART OF CLASSIFER STUB
         if tweet_id > current_max_id:
             if tweet_id > last_id:
                 last_id = tweet_id
@@ -180,20 +191,12 @@ def ingestTwitter():
             db.session.add(new_comment)
     if last_id != 0:
         current_user.twitter_recent_id = str(last_id)
-    #######
-    ####### STUBBING 
-    ####### Actual score should be calculated by classifier api (not yet setup)
-    ####### inefficient double loop is only to highlight that this is stubbing
-    harassing_tweets = []
-    for tweet in data:
-        random_num = random.randint(0,100)
-        if random_num >= 80:
-            harassing_tweets.append(tweet)
-    num_ingested_tweets = len(data)
-    num_normal_tweets = num_ingested_tweets - len(harassing_tweets)
-    percent_score = float(num_normal_tweets) / float(num_ingested_tweets)
-    twitter_score = int(100 * percent_score)
+    #API STUB
+    print "tweets to score..."
+    print tweets_for_score
+    twitter_score, harassing_tweets = calculate_score(tweets_for_score)
     current_user.twitter_score = twitter_score
+    # /API STUB
     db.session.commit()
     resp = jsonify({'score':twitter_score, 'tweets':harassing_tweets})
     resp.status_code = 200
@@ -241,3 +244,71 @@ def downloadComments():
                 pass
     basedir = os.path.abspath(os.path.dirname(__file__))[:-7]
     return send_file(basedir+'currentDump.csv')
+
+
+
+
+
+
+#######
+####### STUBBING 
+####### Actual score should be calculated by classifier api (not yet setup)
+####### This loads the actual model and classifies comments based on the current params
+##FEATURIZE COMMENTS FOR CLASSIFICATION
+def calculate_score(raw_data):
+    tknzr = TweetTokenizer()
+    num_docs =  len(raw_data)
+    token_counts = np.zeros((num_docs, 1), dtype=np.int)
+    swear_counts = np.zeros((num_docs, 1), dtype=np.int)
+    capital_counts = np.zeros((num_docs, 1), dtype=np.int)
+    non_alpha_counts = np.zeros((num_docs, 1), dtype=np.int)
+    i = 0
+    for i in xrange(0, num_docs):
+        line = raw_data[i]
+        try:
+            tokens = tknzr.tokenize(line)
+            token_count = len(tokens)
+            swear_count = len([word for word in tokens if (word in swear_dict)])
+            capital_count = len([char for char in line if char.isupper()])
+            non_alpha_count = len([char for char in line if (not char.isalnum() and char != " ")])
+        except(TypeError): # in event line is nan (likely due to clrf to rf switches)
+            token_count = swear_count = capital_count = non_alpha_count = 0
+            raw_data[i] = ""
+        token_counts[i] = token_count
+        swear_counts[i] = swear_count
+        capital_counts[i] = capital_count
+        non_alpha_counts[i] = non_alpha_count
+        i+=1
+    print("Done encoding features----------------")
+
+    print("Encoding tf-idf-----------------------")
+    vectorizer = HashingVectorizer(n_features=50000, ngram_range=(1, 2), binary=False)
+    vect_data = vectorizer.fit_transform(raw_data)
+    tfidf_data = TfidfTransformer(use_idf=True, norm='l2').fit_transform(vect_data)
+
+    print("tf-idf encoded...combining matrices")
+
+    tokens = coo_matrix(token_counts)
+    swears = coo_matrix(swear_counts)
+    capitals = coo_matrix(capital_counts)
+    non_alphas = coo_matrix(non_alpha_counts)
+    featurized_data = hstack([tfidf_data, tokens, capitals, non_alphas])
+    results = clf.predict(featurized_data.toarray())
+    harassing_comments = []
+    harassing_count = 0
+    for i in range(0, len(results)):
+        if results[i] == 1:
+            harassing_comments.append(raw_data[i])
+            harassing_count+=1
+    num_ingested_tweets = len(raw_data)
+    num_normal_tweets = num_ingested_tweets - harassing_count
+    percent_score = float(num_normal_tweets) / float(num_ingested_tweets)
+    harass_score = int(100 * percent_score)
+    print "total comments seen"
+    print num_ingested_tweets
+    print "harassing comments..."
+    print harassing_comments
+    print "harassing score..."
+    print harass_score
+    return harass_score, harassing_comments
+    
